@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dog Facts</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>🐶 Random Dog Fact</h1>
+      <button onclick="getFact()">Get Fact</button>
+      <p id="fact">Click to get a dog fact!</p>
+    </div>
+
+    <script>
+      async function getFact() {
+        const res = await fetch("/api/fact");
+        const data = await res.json();
+        document.getElementById("fact").innerText = data.fact;
+      }
+    </script>
+  </body>
+</html>
