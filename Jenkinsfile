@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone') {
-            steps {
-                git 'https://github.com/yourusername/dog-facts-pipeline.git'
-            }
-        }
-
         stage('Install') {
             steps {
                 dir('backend') {
