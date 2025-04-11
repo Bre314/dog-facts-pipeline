@@ -1,10 +1,17 @@
 pipeline {
   agent any
 
+  options {
+    skipDefaultCheckout(false) // ⬅️ ensures Jenkins checks out your code
+  }
+
   stages {
-    stage('Clean Workspace') {
+    stage('Debug Workspace') {
       steps {
-        deleteDir()
+        echo '📁 Checking workspace before anything...'
+        sh 'ls -al'
+        sh 'ls -al backend || echo "❌ backend not found"'
+        sh 'cat backend/package.json || echo "❌ package.json missing"'
       }
     }
 
@@ -12,9 +19,6 @@ pipeline {
       steps {
         script {
           docker.image('node:18').inside {
-            sh 'echo "📁 Listing workspace files:" && ls -al'
-            sh 'echo "📁 Listing backend contents:" && ls -al backend || echo "❌ backend not found"'
-            sh 'cat backend/package.json || echo "❌ package.json missing"'
             sh 'npm install --prefix backend'
             sh 'npm test --prefix backend'
           }
