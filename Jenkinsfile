@@ -1,17 +1,14 @@
 pipeline {
   agent any
 
-  options {
-    skipDefaultCheckout(false) // ⬅️ ensures Jenkins checks out your code
-  }
-
   stages {
-    stage('Debug Workspace') {
+    stage('Checkout Code') {
       steps {
-        echo '📁 Checking workspace before anything...'
+        checkout scm
+        sh 'echo 📁 Top level files:'
         sh 'ls -al'
-        sh 'ls -al backend || echo "❌ backend not found"'
-        sh 'cat backend/package.json || echo "❌ package.json missing"'
+        sh 'echo 📁 Backend files:'
+        sh 'ls -al backend'
       }
     }
 
