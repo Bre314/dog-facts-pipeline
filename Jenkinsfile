@@ -9,15 +9,14 @@ pipeline {
     }
 
     stage('Install & Test') {
-      agent {
-        docker {
-          image 'node:18'
-        }
-      }
       steps {
-        dir('backend') {
-          sh 'npm install'
-          sh 'npm test'
+        script {
+          docker.image('node:18').inside {
+            dir('backend') {
+              sh 'npm install'
+              sh 'npm test'
+            }
+          }
         }
       }
     }
