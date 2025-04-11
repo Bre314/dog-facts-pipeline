@@ -12,13 +12,9 @@ pipeline {
       steps {
         script {
           docker.image('node:18').inside {
-            // 🔍 DEBUG: Show contents of workspace
-            sh 'echo "🔍 Listing top-level workspace files:"'
-            sh 'ls -al'
-            sh 'echo "🔍 Listing contents of backend directory:"'
-            sh 'ls -al backend || echo "❌ backend directory not found!"'
-
-            // ✅ Install dependencies and run tests
+            sh 'echo "📁 Listing workspace files:" && ls -al'
+            sh 'echo "📁 Listing backend contents:" && ls -al backend || echo "❌ backend not found"'
+            sh 'cat backend/package.json || echo "❌ package.json missing"'
             sh 'npm install --prefix backend'
             sh 'npm test --prefix backend'
           }
