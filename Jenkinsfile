@@ -18,6 +18,7 @@ pipeline {
           docker.image('node:18').inside {
             sh 'npm install --prefix backend'
             sh 'npm test --prefix backend'
+            sh 'npm test --prefix backend -- --detectOpenHandles'
           }
         }
       }
