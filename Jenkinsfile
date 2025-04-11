@@ -5,13 +5,13 @@ pipeline {
     }
   }
 
-
-stage('Clean Workspace') {
-  steps {
-    deleteDir()
-  }
-}
   stages {
+    stage('Clean Workspace') {
+      steps {
+        deleteDir()
+      }
+    }
+
     stage('Install') {
       steps {
         dir('backend') {
