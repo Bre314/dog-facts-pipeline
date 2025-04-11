@@ -8,17 +8,15 @@ pipeline {
       }
     }
 
-    stage('Install') {
+    stage('Install & Test') {
+      agent {
+        docker {
+          image 'node:18'
+        }
+      }
       steps {
         dir('backend') {
           sh 'npm install'
-        }
-      }
-    }
-
-    stage('Test') {
-      steps {
-        dir('backend') {
           sh 'npm test'
         }
       }
@@ -37,4 +35,3 @@ pipeline {
     }
   }
 }
-
