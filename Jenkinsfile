@@ -5,6 +5,12 @@ pipeline {
     }
   }
 
+
+stage('Clean Workspace') {
+  steps {
+    deleteDir()
+  }
+}
   stages {
     stage('Install') {
       steps {
