@@ -4,11 +4,11 @@ const app = require("../index");
 let server;
 
 beforeAll(() => {
-  server = app.listen(4000); // Use a test port
+  server = app.listen(4000); // testing port
 });
 
 afterAll((done) => {
-  server.close(done); // Close the server after tests
+  server.close(done); // shuts down the server after the tests
 });
 
 describe("GET /api/fact", () => {

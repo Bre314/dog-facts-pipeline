@@ -1,7 +1,18 @@
-version: "3"
+version: "3.8"
 
 services:
-  dog-facts:
-    build: .
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/local/bin/docker:/usr/bin/docker # ✅ Mount Docker CLI from host
+
+volumes:
+  jenkins_home:
