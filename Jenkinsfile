@@ -12,10 +12,7 @@ pipeline {
       steps {
         script {
           docker.image('node:18').inside {
-            dir('backend') {
-              sh 'npm install'
-              sh 'npm test'
-            }
+            sh 'cd backend && npm install && npm test'
           }
         }
       }
