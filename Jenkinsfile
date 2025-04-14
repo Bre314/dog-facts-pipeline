@@ -1,37 +1,31 @@
 pipeline {
-  agent any
-
-  tools {
-    nodejs 'Node 18' // This name must match what you set in Global Tool Config
-  }
-
-  stages {
-    stage('Install Backend Dependencies') {
-      steps {
-        dir('backend') {
-          sh 'npm install'
+    agent {
+        docker {
+            image 'docker:24.0.7-dind'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
-      }
     }
-
-    stage('Run Unit Tests') {
-      steps {
-        dir('backend') {
-          sh 'npm test'
+    stages {
+        stage('Install Backend Dependencies') {
+            steps {
+                dir('backend') {
+                    sh 'npm install'
+                }
+            }
         }
-      }
-    }
 
-    stage('Build Docker Image') {
-      steps {
-        sh 'docker build -f Dockerfile.backend -t dog-facts-backend .'
-      }
-    }
+        stage('Run Unit Tests') {
+            steps {
+                dir('backend') {
+                    sh 'npm test'
+                }
+            }
+        }
 
-    stage('Success') {
-      steps {
-        echo '✅ Build Complete!'
-      }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -f Dockerfile.backend -t dog-facts-backend .'
+            }
+        }
     }
-  }
 }
