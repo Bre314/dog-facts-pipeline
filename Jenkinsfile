@@ -1,6 +1,10 @@
 pipeline {
   agent any
 
+  tools {Tool Config name
+    nodejs 'Node 18' 
+  }
+
   stages {
     stage('Install Backend Dependencies') {
       steps {
@@ -26,7 +30,7 @@ pipeline {
 
     stage('Success') {
       steps {
-        echo '🚀 Pipeline Complete: Dog facts microservice built and tested!'
+        echo '✅ Build Complete!'
       }
     }
   }
