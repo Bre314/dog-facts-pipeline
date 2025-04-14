@@ -7,6 +7,14 @@ pipeline {
     }
 
     stages {
+        stage('Test Git Checkout') {
+            steps {
+                sh 'echo "Checking repo contents..."'
+                sh 'ls -la'
+                sh 'git rev-parse --is-inside-work-tree || echo "❌ Not a Git repo"'
+            }
+        }
+
         stage('Install Backend Dependencies') {
             steps {
                 dir('backend') {
