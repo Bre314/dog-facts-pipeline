@@ -1,10 +1,11 @@
 pipeline {
     agent {
         docker {
-            image 'docker:24.0.7-dind'
+            image 'jenkins-node-docker'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
+
     stages {
         stage('Install Backend Dependencies') {
             steps {
@@ -24,7 +25,9 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -f Dockerfile.backend -t dog-facts-backend .'
+                dir('backend') {
+                    sh 'docker build -t dog-facts-backend .'
+                }
             }
         }
     }
